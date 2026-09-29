@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspect-Based Sentiment Analysis (ABSA) Studio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Main Navigation Bar -->
+    <header class="app-header">
+        <div class="container header-content">
+            <div class="brand">
+                <span class="brand-logo">📊</span>
+                <div>
+                    <h1>ABSA Studio</h1>
+                    <p class="brand-tagline">Aspect-Based Sentiment Analysis Engine</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <div class="domain-selector-wrapper">
+                    <label for="domainSelect">Domain:</label>
+                    <select id="domainSelect" class="domain-select">
+                        <option value="restaurant">🍽️ Restaurant & Dining</option>
+                        <option value="hotel">🏨 Hotels & Hospitality</option>
+                        <option value="tech">💻 Tech & Electronics</option>
+                        <option value="ecommerce">📦 E-Commerce & Retail</option>
+                    </select>
+                </div>
+                <button id="themeToggleBtn" class="btn btn-outline" onclick="toggleTheme()">🌙 Dark Mode</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="app-nav">
+        <div class="container nav-container">
+            <button class="nav-tab active" onclick="switchTab('tabSingleAnalyzer', this)">🔍 Single Review Analyzer</button>
+            <button class="nav-tab" onclick="switchTab('tabBatchAnalyzer', this)">📊 Batch Review Analysis</button>
+            <button class="nav-tab" onclick="switchTab('tabCustomTaxonomy', this)">⚙️ Custom Aspect Taxonomy</button>
+            <button class="nav-tab" onclick="switchTab('tabDocumentation', this)">📖 ABSA Architecture</button>
+        </div>
+    </nav>
+
+    <!-- App Main Container -->
+    <main class="container main-content">
+
+        <!-- TAB 1: Single Review Analyzer -->
+        <section id="tabSingleAnalyzer" class="tab-content active">
+
+            <!-- Hero / Input Panel -->
+            <div class="card input-card">
+                <div class="card-header">
+                    <h2>Analyze Customer Review</h2>
+                    <div class="preset-buttons">
+                        <span class="preset-label">Test Samples:</span>
+                        <button class="btn-sm btn-ghost" onclick="loadPresetSample(0)">Sample 1</button>
+                        <button class="btn-sm btn-ghost" onclick="loadPresetSample(1)">Sample 2</button>
+                        <button class="btn-sm btn-ghost" onclick="loadPresetSample(2)">Sample 3</button>
+                        <button class="btn-sm btn-ghost" onclick="loadNextSample()">🔄 Next</button>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <textarea id="reviewInput" placeholder="Enter or paste a customer review here (e.g., 'The food was delicious and hot, but the service was extremely slow and staff were rude.')..."></textarea>
+
+                    <div class="input-footer">
+                        <div class="counters">
+                            <span id="charCount">0 chars</span> • <span id="wordCount">0 words</span>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-secondary" onclick="clearInput()">🗑️ Clear</button>
+                            <button class="btn btn-primary" onclick="analyzeReview()">🚀 Analyze Review</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Overall Review Score Summary Card -->
+            <div id="overallMetricsCard" class="card metrics-card" style="display: none;">
+                <div class="metrics-grid">
+                    <div class="metric-block">
+                        <span class="metric-title">Overall Sentiment</span>
+                        <div id="overallSentimentBadge" class="badge badge-positive">Positive</div>
+                    </div>
+                    <div class="metric-block">
+                        <span class="metric-title">Overall Score</span>
+                        <div id="overallScoreMetric" class="metric-number">85/100</div>
+                    </div>
+                    <div class="metric-block">
+                        <span class="metric-title">Aspects Detected</span>
+                        <div id="aspectsCountMetric" class="metric-number">3</div>
+                    </div>
+                    <div class="metric-block progress-block">
+                        <span class="metric-title">Sentiment Ratio</span>
+                        <div class="progress-bar-container">
+                            <div id="posProgressBar" class="progress-segment bg-pos" style="width: 50%;"></div>
+                            <div id="negProgressBar" class="progress-segment bg-neg" style="width: 30%;"></div>
+                            <div id="neuProgressBar" class="progress-segment bg-neu" style="width: 20%;"></div>
+                        </div>
+                        <div class="progress-legend">
+                            <span class="dot bg-pos"></span> Positive
+                            <span class="dot bg-neg"></span> Negative
+                            <span class="dot bg-neu"></span> Neutral
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Detailed Aspect Results Section -->
+            <div class="card results-card">
+                <div class="card-header">
+                    <h2>Aspect Analysis Results</h2>
+                    <div class="export-actions">
+                        <button class="btn-sm btn-outline" onclick="exportResultsJSON()">📥 Export JSON</button>
+                        <button class="btn-sm btn-outline" onclick="exportResultsCSV()">📊 Export CSV</button>
+                        <button class="btn-sm btn-outline" onclick="printReport()">🖨️ Print Report</button>
+                    </div>
+                </div>
+
+                <div class="card-body" id="resultContainer">
+                    <div class="placeholder-box">
+                        <span class="icon">🔍</span>
+                        <p>Your aspect-based analysis results will appear here after clicking "Analyze Review".</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- TAB 2: Batch Review Analysis -->
+        <section id="tabBatchAnalyzer" class="tab-content" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Multi-Review Batch Analysis</h2>
+                    <p class="subtitle">Paste multiple customer reviews (one per line) to view aggregated aspect analytics and sentiment trends.</p>
+                </div>
+                <div class="card-body">
+                    <textarea id="batchInput" class="batch-textarea" placeholder="Paste multiple review lines here...
+Example:
+The room was clean and spacious, but WiFi was horrible.
+Great food quality and fast service, loved the atmosphere!
+Staff was unhelpful and room service took 2 hours."></textarea>
+                    <div class="input-footer">
+                        <div></div>
+                        <button class="btn btn-primary" onclick="runBatchAnalysis()">📊 Run Batch Analysis</button>
+                    </div>
+
+                    <div id="batchResultsDiv" class="batch-results-wrapper">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TAB 3: Custom Aspect Taxonomy -->
+        <section id="tabCustomTaxonomy" class="tab-content" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Custom Aspect Category Taxonomy</h2>
+                    <p class="subtitle">Define domain-specific custom aspects and sentiment keywords to customize the classifier engine.</p>
+                </div>
+                <div class="card-body">
+                    <div class="custom-aspect-form">
+                        <div class="form-group">
+                            <label for="customAspectName">Aspect Name Category:</label>
+                            <input type="text" id="customAspectName" placeholder="e.g. Delivery Speed, Ergonomics, Sound Quality">
+                        </div>
+                        <div class="form-group">
+                            <label for="customAspectKeywords">Keywords (comma-separated):</label>
+                            <input type="text" id="customAspectKeywords" placeholder="e.g. delivery, arrive, dispatched, transit, shipping">
+                        </div>
+                        <button class="btn btn-primary" onclick="addCustomAspect()">➕ Add Aspect</button>
+                    </div>
+
+                    <h4 class="section-subtitle">Active Custom Aspects:</h4>
+                    <div id="customAspectsList" class="custom-aspects-list">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- TAB 4: ABSA Architecture & Documentation -->
+        <section id="tabDocumentation" class="tab-content" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Aspect-Based Sentiment Analysis (ABSA) Architecture</h2>
+                </div>
+                <div class="card-body doc-content">
+                    <h3>What is Aspect-Based Sentiment Analysis?</h3>
+                    <p>Standard document-level sentiment analysis assigns a single overall sentiment label (Positive/Negative) to an entire piece of text. However, real customer reviews are nuanced and contain mixed feedback across different features or <strong>aspects</strong>.</p>
+                    
+                    <div class="callout callout-info">
+                        <strong>Example:</strong> "The food was delicious, but the service was slow."
+                        <ul>
+                            <li><strong>Traditional SA:</strong> Mixed / Neutral (loses detailed feedback)</li>
+                            <li><strong>ABSA:</strong> 
+                                <ul>
+                                    <li>Aspect: <code>Food</code> ➔ <span class="text-pos">Positive</span> (Opinion: "delicious")</li>
+                                    <li>Aspect: <code>Service</code> ➔ <span class="text-neg">Negative</span> (Opinion: "slow")</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3>Engine Processing Pipeline</h3>
+                    <ol class="pipeline-list">
+                        <li><strong>Clause Segmentation:</strong> The raw text is decomposed into discrete clause units by splitting on conjunction shifters (<em>but, however, although, yet</em>) and sentence delimiters.</li>
+                        <li><strong>Aspect Entity Recognition:</strong> Each clause is parsed against domain taxonomies (Restaurant, Hotel, Tech, E-Commerce, Custom) to locate target entity mentions.</li>
+                        <li><strong>Negation & Modifier Shifting:</strong> The engine inspects 3-word context windows around opinion adjectives to apply negation flips (<em>"not good" ➔ Negative</em>) and intensity amplifiers (<em>"extremely fast" ➔ Boost Score</em>).</li>
+                        <li><strong>Span Extraction & Highlight Mapping:</strong> Character offsets are calculated to enable real-time interactive text highlighting in the web UI.</li>
+                    </ol>
+
+                    <h3>Supported Domains & Taxonomies</h3>
+                    <div class="domains-grid">
+                        <div class="domain-box">
+                            <h4>🍽️ Restaurant</h4>
+                            <p>Food, Service, Staff, Ambience, Price, Cleanliness, Drinks</p>
+                        </div>
+                        <div class="domain-box">
+                            <h4>🏨 Hotel</h4>
+                            <p>Room, Service, Staff, Location, Cleanliness, WiFi, Amenities, Price</p>
+                        </div>
+                        <div class="domain-box">
+                            <h4>💻 Tech Products</h4>
+                            <p>Build Quality, Performance, Battery, Display, Camera, Price, Support</p>
+                        </div>
+                        <div class="domain-box">
+                            <h4>📦 E-Commerce</h4>
+                            <p>Shipping, Packaging, Product Quality, Price & Value, Customer Service</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <p>© 2026 Aspect-Based Sentiment Analysis Studio • Built with HTML5, Modern CSS3 & JavaScript NLP Engine</p>
+        </div>
+    </footer>
+
+    <!-- App Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

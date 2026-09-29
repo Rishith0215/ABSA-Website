@@ -1,0 +1,18 @@
+{
+  "name": "absa-website",
+  "version": "1.0.0",
+  "description": "Aspect-Based Sentiment Analysis (ABSA) Web Studio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "absa",
+    "sentiment-analysis",
+    "nlp",
+    "aspect-based-sentiment-analysis",
+    "web-app"
+  ],
+  "author": "Antigravity",
+  "license": "MIT"
+}
