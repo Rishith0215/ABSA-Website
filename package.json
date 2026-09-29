@@ -4,7 +4,9 @@
   "description": "Aspect-Based Sentiment Analysis (ABSA) Web Studio",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --check server.js script.js",
+    "build": "echo \"Build completed successfully\""
   },
   "keywords": [
     "absa",
