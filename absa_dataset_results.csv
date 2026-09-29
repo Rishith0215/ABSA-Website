@@ -1,0 +1,16 @@
+Review_ID,Domain,Review_Text,Extracted_Aspects,Aspect_Categories,Sentiment,Confidence_Score,Word_Count
+REV-001,Restaurant,"The pizza was delicious and hot, but the waiter was extremely rude.","pizza, waiter","Food, Staff",Mixed (Positive/Negative),0.89,12
+REV-002,Restaurant,Loved the ambient lighting and cozy seating! Food arrived fast and tasted amazing.,"ambient lighting, seating, food","Ambience, Food, Service",Positive,0.96,13
+REV-003,Restaurant,"Dirty tables, cold soup, and overpriced drinks. Terrible manager attitude.","tables, soup, drinks, manager","Cleanliness, Food, Price, Staff",Negative,0.94,11
+REV-004,Restaurant,"Fast delivery and hot pasta, though the portion size was slightly small.","delivery, pasta, portion size","Service, Food, Food",Positive,0.85,12
+REV-005,Hotel,The room was spotless and spacious with a magnificent ocean view. WiFi was super fast.,"room, view, WiFi","Room, Room, WiFi",Positive,0.98,15
+REV-006,Hotel,Check-in took forever and reception staff was unhelpful. Breakfast was great though.,"check-in, reception staff, breakfast","Service, Staff, Amenities",Mixed,0.82,13
+REV-007,Hotel,"Dirty bathroom, broken AC unit, and loud street noise all night. Unacceptable!","bathroom, AC unit, street noise","Cleanliness, Amenities, Ambience",Negative,0.97,12
+REV-008,Hotel,"Comfortable bed, friendly housekeeping, and very affordable room rate.","bed, housekeeping, room rate","Room, Staff, Price",Positive,0.91,10
+REV-009,Tech,The display is vibrant with smooth 120Hz refresh rate. Battery life is stellar.,"display, refresh rate, battery life","Display, Display, Battery",Positive,0.95,14
+REV-010,Tech,"Extremely fast processor for gaming! Premium build quality, worth every dollar.","processor, build quality, price","Performance, Build Quality, Price",Positive,0.93,11
+REV-011,Tech,"Battery drains in 3 hours, screen freezes, and customer support was useless.","battery, screen, customer support","Battery, Display, Support",Negative,0.96,11
+REV-012,Tech,"Camera quality is fantastic in daylight, but low light photos look grainy.","camera quality, low light photos","Camera, Camera",Mixed,0.78,13
+REV-013,E-Commerce,Package arrived two days early in perfect sealed condition. Great seller!,"package, delivery, seller","Packaging, Shipping, Customer Service",Positive,0.94,11
+REV-014,E-Commerce,Item size was completely incorrect and material felt cheap and fragile.,"item size, material","Product Quality, Product Quality",Negative,0.91,11
+REV-015,E-Commerce,Customer service issued a full refund instantly. Very satisfied with support.,"customer service, refund","Customer Service, Price & Value",Positive,0.92,11
